@@ -37,12 +37,38 @@ jobs:
       - name: Set up Azure CLI
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.{
+
+  "clientId": "717f47e0-ae85-4126-ba09-f89715ce00e2",
+
+  "clientSecret": "J4g8Q~99jMKO9KB5QINkwFTiJncxYYfU_TDj6akE",
+
+  "subscriptionId": "e0b9cada-61bc-4b5a-bd7a-52c606726b3b",
+
+  "tenantId": "5ca2bc70-353c-4d1f-b7d7-7f2b2259df68",
+
+  "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
+
+  "resourceManagerEndpointUrl": "https://management.azure.com/",
+
+  "activeDirectoryGraphResourceId": "https://graph.windows.net/",
+
+  "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/",
+
+  "galleryEndpointUrl": "https://gallery.azure.com/",
+
+  "managementEndpointUrl": "https://management.core.windows.net/"
+
+}
+
+ }}
+
+      - name: Create resource group
+        run: az group create --name my-resource-group --location "West Europe"
 
       - name: Deploy to Azure
         run: |
-          az login --service-principal -u ${{ secrets.AZURE_CREDENTIALS.clientId }} -p ${{ secrets.AZURE_CREDENTIALS.clientSecret }} --tenant ${{ secrets.AZURE_CREDENTIALS.tenantId }}
-          az deployment group create --resource-group <your-resource-group> --template-file main.bicep --parameters-file parameters.json
+          az deployment group create --resource-group my-resource-group --template-file main.bicep --parameters-file parameters.json
 
 env:
   MYSECRET: ${{ secrets.MYSECRET }}
